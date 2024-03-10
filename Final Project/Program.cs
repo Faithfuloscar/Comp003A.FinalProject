@@ -184,8 +184,8 @@ namespace Final_Project
         /// <summary>
         /// Checks if the input is special characters or numbers.
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+        /// <param name="input">String to be checked.</param>
+        /// <returns> True if the input string contains numbers, punctuation, or symbols anything else returns false.</returns>
         static bool ContainsNumbersOrSpecialChars(string input)
         {
             foreach (char c in input)
