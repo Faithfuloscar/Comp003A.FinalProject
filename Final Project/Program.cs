@@ -1,4 +1,8 @@
-﻿using System.Runtime.InteropServices;
+﻿/*
+ * Author: Oscar Mendez
+ * Class: COMP-003A
+ * Purpose: To create a dating profile
+ */
 
 namespace Final_Project
 {
@@ -14,13 +18,13 @@ namespace Final_Project
             Console.WriteLine("Let's get you started on your journey to love");
             Console.WriteLine("What is your first name?");
             Console.Write("");
-            string name1 = GetValidName();
-           
+            string FirstName = GetValidName();
+
 
             Console.WriteLine("Last name?");
             Console.Write("");
-            string name2 = GetValidName();
-            Console.WriteLine("Welcome "+ name1 +" "+ name2);
+            string LastName = GetValidName();
+            Console.WriteLine("Welcome "+ FirstName +" "+ LastName);
             SectionSeparator();
 
             // Getting the birthdate of user.
@@ -35,122 +39,112 @@ namespace Final_Project
 
 
             // Gender identification
-            string gender = "";
+            Console.WriteLine("Please enter your gender (M,F,O)");
+            char genderChar = '\0';
             do
             {
-                Console.WriteLine("Please enter your gender (M,F,O)");
                 string input = Console.ReadLine();
 
-                if (string.IsNullOrWhiteSpace(input))
+                if (string.IsNullOrEmpty(input) || input.Length != 1)
                 {
                     Console.WriteLine("Invalid input.");
-                    continue;
+                        continue;
                 }
+                genderChar = input[0];
 
-                gender = input.ToUpper();
+            } while (!IsValidGenderChar(genderChar));
 
-                if (gender != "F" && gender != "M" && gender !="O")
-                {
-                    Console.WriteLine("Invalid input.");
-                }
-
-            } while (gender == "F" && gender == "M" && gender =="O");
-
-            switch(gender)
-            {
-                case "F":
-                    Console.WriteLine("Female");
-                    break;
-                case "M":
-                    Console.WriteLine("Male");
-                    break;
-                case "O":
-                    Console.WriteLine("Other");
-                    break;
-            }
+            string gender = GetGenderDescription(genderChar);
+            Console.WriteLine($"You are a {gender}");
 
             SectionSeparator();
             Console.WriteLine("Now Tells us about your self");
             SectionSeparator();
 
-            // Question 1
-            Console.WriteLine("What's your ideal first date?");
-            Console.Write("");
-            string Q1 = GetValidName();
-            Console.WriteLine("Your ideal date is " + Q1);
+            // List of questions to ask user.
+            List<string> Answers = new List<string>();
+            char userInput = default;
+
+            do
+            {
+                Console.WriteLine("What's your ideal first date?"); 
+                Console.Write("");
+                string answer1 = Console.ReadLine();
+                Answers.Add(answer1);
+                
+
+                Console.WriteLine("Describe your ideal weekend or free time activity.");
+                Console.Write("");
+                string answer2 = Console.ReadLine();
+                Answers.Add(answer2 );
+                
+
+                Console.WriteLine("What kind of music do you enjoy listening to?");
+                Console.Write("");
+                string answer3 = Console.ReadLine();
+                Answers.Add (answer3);
+
+                Console.WriteLine("What is your favorite movie?");
+                Console.Write("");
+                string answer4 = Console.ReadLine();
+                Answers.Add(answer4 );
+
+                Console.WriteLine("Are you a morning person or a night owl?");
+                Console.Write("");
+                string answer5 = Console.ReadLine();
+                Answers.Add(answer5 );
+
+                Console.WriteLine("Do you enjoy any physical fitness activities?");
+                Console.Write("");
+                string answer6 = Console.ReadLine();
+                Answers.Add(answer6 );
+
+                Console.WriteLine("What values are important to you in a relationship");
+                Console.Write("");
+                string answer7 = Console.ReadLine();
+                Answers.Add(answer7 );
+
+                Console.WriteLine("What qualities do you look for in a potential partner?");
+                Console.Write("");
+                string answer8 = Console.ReadLine();
+                Answers.Add(answer8 );
+
+                Console.WriteLine("What's something you are passionate about?");
+                Console.Write("");
+                string answer9 = Console.ReadLine();
+                Answers.Add(answer9 );
+
+                Console.WriteLine("Do you have any pets?");
+                Console.Write("");
+                string answer10 = Console.ReadLine();
+                Answers.Add(answer10 );
+
+            } while (false);
+
+            SectionSeparator();
+            Console.WriteLine("Profile");
             SectionSeparator();
 
-            // Question 2
-            Console.WriteLine("Describe your ideal weekend or free time activity.");
-            Console.Write("");
-            string Q2 = GetValidName();
-            Console.WriteLine("Your ideal weekend or free time activity is " + Q2);
-            SectionSeparator();
-
-            // Question 3
-            Console.WriteLine("What kind of music do you enjoy listening to?");
-            Console.Write("");
-            string Q3 = GetValidName();
-            Console.WriteLine("You enjoy listening to "+ Q3);
-            SectionSeparator();
-
-            // Question 4
-            Console.WriteLine("What is your favorite movie?");
-            Console.Write("");
-            string Q4 = GetValidName();
-            Console.WriteLine("Your favorite move is "+ Q4);
-            SectionSeparator();
-
-            // Question 5
-            Console.WriteLine("Are you a morning person or a night owl?");
-            Console.Write("");
-            string Q5 = GetValidName();
-            Console.WriteLine("You are a "+ Q5);
-            SectionSeparator();
-
-            // Question 6
-            Console.WriteLine("Do you enjoy any physical fitness activities?");
-            Console.Write("");
-            string Q6 = GetValidName();
-            Console.WriteLine("You enjoy " + Q6);
-            SectionSeparator();
-
-            // Question 7
-            Console.WriteLine("What values are important to you in a relationship");
-            Console.Write("");
-            string Q7 = GetValidName();
-            Console.WriteLine("Your important values in a relationship are " + Q7);
-            SectionSeparator();
-
-            // Question 8
-            Console.WriteLine("What qualities do you look for in a potential partner?");
-            Console.Write("");
-            string Q8 = GetValidName();
-            Console.WriteLine("You are looking for " + Q8 ," in a person");
-            SectionSeparator();
-
-            // Question 9
-            Console.WriteLine("What's something you are passionate about?");
-            Console.Write("");
-            string Q9 = GetValidName();
-            Console.WriteLine("You are passionate about " + Q9);
-            SectionSeparator();
-
-            // Question 10
-            Console.WriteLine("Do you have any pets?");
-            Console.Write("");
-            string Q10 = GetValidName();
-            Console.WriteLine("You have " + Q10);
-            SectionSeparator();
-
+            Console.WriteLine("Name: "+ FirstName + "" + LastName);
+            Console.WriteLine("Age: "+ age);
+            Console.WriteLine("Gender: "+ gender);
+            Console.WriteLine("Your answers to our question were:");
+            foreach (string answer in Answers)
+            {
+                Console.WriteLine(answer);
+            }
         }
-        // Provides for the seperation of sections using the * symbol.
+        /// <summary>
+        /// Provides for the seperation of sections using the * symbol.
+        /// </summary>
         static void SectionSeparator()
         {
-            Console.WriteLine("".PadRight(50,'*'));
+            Console.WriteLine("".PadRight(50, '*'));
         }
 
-        // Draws a heart.
+        /// <summary>
+        /// Creates the image of a heart utilizing the * symbol, \t is used to help center the heart.
+        /// </summary>
         static void DrawHeart()
         {
             Console.WriteLine("\t    ***   ***");
@@ -161,7 +155,10 @@ namespace Final_Project
             Console.WriteLine("\t        *");
         }
 
-        // States the output if input is null/blank/number/ or special character.
+        /// <summary>
+        /// states the output if input is null/blank/number/ or special character.
+        /// </summary>
+        /// <returns>Invalid input for null/blank, asks users to refrain from using special characters or digits if used.</returns>
         static string GetValidName()
         {
             string input;
@@ -180,7 +177,7 @@ namespace Final_Project
             } while (string.IsNullOrWhiteSpace(input) || ContainsNumbersOrSpecialChars(input));
             return input;
         }
-        
+
         /// <summary>
         /// Checks if the input is special characters or numbers.
         /// </summary>
@@ -190,10 +187,13 @@ namespace Final_Project
         {
             foreach (char c in input)
             {
+                // char.IsDigit() is used to refer to check if the input was a number.
+                // char.IsPunctuation is used to check if the input was a punctuation mark.
+                // char.IsSymbol is used to check if the input was a symbol.
                 if (char.IsDigit(c) || char.IsPunctuation(c) || char.IsSymbol(c))
-                  {
+                {
                     return true;
-                  }
+                }
             }
             return false;
         }
@@ -211,6 +211,8 @@ namespace Final_Project
             {
                 Console.WriteLine($"Please enter your birth year between {minYear} and {maxYear}:");
 
+                // The purpose of int.TryParse() is to ensure the program doesn't crash from an invalid input.
+                // The purpose of the out keyword is to assign a value to birthYear.
                 if (int.TryParse(Console.ReadLine(), out birthYear))
                 {
                     if (birthYear >= minYear && birthYear <= maxYear)
@@ -240,7 +242,9 @@ namespace Final_Project
             {
                 Console.WriteLine("Please enter the month you were born (1-12) ");
 
-                if(int.TryParse(Console.ReadLine(),out month) && month >= 1 && month <= 12)
+                // The purpose of int.TryParse() is to prompt the user to enter a correct input.
+                // The purpose of the out keyword is to assign a value to month.
+                if (int.TryParse(Console.ReadLine(), out month) && month >= 1 && month <= 12)
                 {
                     return month;
                 }
@@ -260,10 +264,12 @@ namespace Final_Project
         {
             int day;
 
+            // The if statement stops the loop from being infinite as soon as a valid input is made.
             while (true)
             {
                 Console.WriteLine($"Please enter your birthday for {month} (1-{DateTime.DaysInMonth(DateTime.Now.Year, month)}) ");
 
+                // The purpose is to get the number of days in a specified month of a specified year.
                 if (int.TryParse(Console.ReadLine(), out day) && day >= 1 && day <= DateTime.DaysInMonth(DateTime.Now.Year, month))
                 {
                     return day;
@@ -292,7 +298,40 @@ namespace Final_Project
 
             return age;
         }
+        
+        /// <summary>
+        /// Determines if the character is valid.
+        /// </summary>
+        /// <param name="genderChar">The character representing gender.</param>
+        /// <returns>True if valid character otherwise false.</returns>
+        static bool IsValidGenderChar(char genderChar)
+        {
+            return (genderChar == 'M' || genderChar == 'm' || genderChar == 'F' || genderChar == 'f' || genderChar =='O' || genderChar == 'o');
+        }
 
-
+        /// <summary>
+        /// Outputs the gender based on provided answer.
+        /// </summary>
+        /// <param name="gender"> character representing gender.</param>
+        /// <returns>The gender description as a string.</returns>
+        static string GetGenderDescription(char gender)
+        {
+            if (gender == 'M' || gender == 'm')
+            {
+                return "Male";
+            }
+            else if (gender == 'F' || gender == 'f')
+            {
+                return "Female";
+            }
+            else if (gender == 'O' || gender == 'o')
+            {
+                return "Other";
+            }
+            else
+            {
+                return "invalid input";
+            }
+        }
     }
 }
